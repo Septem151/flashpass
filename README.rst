@@ -18,9 +18,9 @@ Install from PyPi:
 
 Or, from the release tarball/wheel:
 
-  * Download the `latest release <https://github.com/Septem151/flashpass/releases/latest>`_
-  * Navigate to the directory where you saved the release
-  * ``pip install --upgrade [release file]``
+* Download the `latest release <https://github.com/Septem151/flashpass/releases/latest>`_
+* Navigate to the directory where you saved the release
+* ``pip install --upgrade [release file]``
 
 *****
 Usage
@@ -57,6 +57,6 @@ List the names of all stored passwords.
 Print help
 ==========
 
-Print all available commands and their descriptions.
-
 * ``flashpass -h`` or ``flashpass --help``
+
+Print all available commands and their descriptions.
