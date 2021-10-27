@@ -1,8 +1,22 @@
 [tool.poetry]
 name = "flashpass"
-version = "0.1.1"
+version = "0.1.2"
 description = "Encrypt & Decrypt FlashPass .fp files"
 authors = ["Carson Mullins <carsonmullins@yahoo.com>"]
+license = "GPL-2.0-only"
+readme = "README.rst"
+repository = "https://github.com/Septem151/flashpass"
+keywords = ["security", "passwords"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Security",
+  "Topic :: Utilities",
+  "Typing :: Typed"
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
