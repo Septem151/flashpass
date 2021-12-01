@@ -1,8 +1,8 @@
 """IO Module for FlashPass"""
+import os
+import sys
 import typing as t
 from pathlib import Path
-import sys
-import os
 
 from flashpass.crypto import (
     HASH_LENGTH,
@@ -17,14 +17,15 @@ from flashpass.exceptions import FpFileFormatError, FpFileReadError, FpFileWrite
 
 
 def _get_storage_dir() -> Path:
-    if sys.platform.startswith("linux") or sys.platform.startswith("freebsd"):
+    platform = sys.platform
+    if platform.startswith("linux") or platform.startswith("freebsd"):
         return Path.home() / ".local" / "share" / "flashpass"
-    if sys.platform.startswith("win") or sys.platform.startswith("cygwin"):
+    if platform.startswith("win") or platform.startswith("cygwin"):
         appdata_dir = os.getenv("LOCALAPPDATA")
         if appdata_dir is None:
             return Path.home() / "AppData" / "Local" / "flashpass"
         return Path(appdata_dir) / "flashpass"
-    if sys.platform.startswith("darwin"):
+    if platform.startswith("darwin"):
         return Path.home() / "Library" / "Application Support" / "flashpass"
     return Path.home() / ".flashpass"
 
