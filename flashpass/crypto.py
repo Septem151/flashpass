@@ -156,24 +156,16 @@ class SaltedKey:
 
     @classmethod
     def from_bytes(cls: t.Type["SaltedKey"], key: bytes, salt: bytes) -> "SaltedKey":
+        """Creates a new SaltedKey using given parameters.
+
+        Args:
+            key (bytes): The key to use for the SaltedKey.
+            salt (bytes): The salt to use for the SaltedKey.
+        """
         salted_key = cls()
         salted_key.key = key
         salted_key.salt = salt
         return salted_key
-
-    # def test_password(self, key_hash: bytes) -> bool:
-    #     """tests a given password against this key.
-
-    #     Params:
-    #         password: the password to test
-
-    #     Returns:
-    #         bool: true if the password is correct, false if not
-
-    #     Raises:
-    #         KeyNotInitializedError: if the key was not initialized
-    #     """
-    #     return hash_key(self.key) == key_hash
 
 
 class FpCipher:
@@ -186,7 +178,9 @@ class FpCipher:
         iv: the cipher's iv
     """
 
-    def __init__(self, iv: t.Optional[bytes] = None) -> None:
+    def __init__(
+        self, iv: t.Optional[bytes] = None  # pylint: disable=invalid-name
+    ) -> None:
         self._iv = iv if iv is not None else gen_iv()
 
     @property

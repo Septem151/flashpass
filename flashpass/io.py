@@ -60,6 +60,11 @@ class FpFile:
         self._filename = filename
 
     def exists(self) -> bool:
+        """Returns whether the FpFile exists.
+
+        Returns:
+            True if the file exists, False if not.
+        """
         return self._filepath.exists()
 
     def write(self, stored_password: str, encryption_password: str) -> None:

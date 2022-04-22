@@ -6,6 +6,7 @@ import typing as t
 
 import pyperclip
 
+from flashpass import __version__
 from flashpass.exceptions import InvalidPasswordError
 from flashpass.io import FpFile, all_files
 
@@ -43,6 +44,11 @@ def _validate_filename(filename: t.Optional[str]) -> FpFile:
 
 
 def run_encrypt(pw_file: FpFile) -> None:
+    """Runs flashpass in encrypt mode.
+
+    Args:
+        pw_file (FpFile): The file to operate on.
+    """
     if pw_file.exists():
         sys.exit("Cannot encrypt an already existing file.")
     match = False
@@ -68,6 +74,11 @@ def run_encrypt(pw_file: FpFile) -> None:
 
 
 def run_decrypt(pw_file: FpFile) -> None:
+    """Runs flashpass in decrypt mode.
+
+    Args:
+        pw_file (FpFile): The file to operate on.
+    """
     if not pw_file.exists():
         sys.exit("No password found for the given filename.")
     attempts = MAX_ATTEMPTS
@@ -86,6 +97,11 @@ def run_decrypt(pw_file: FpFile) -> None:
 
 
 def run_interactive(pw_file: t.Optional[FpFile] = None) -> None:
+    """Runs flashpass in interactive mode.
+
+    Args:
+        pw_file (FpFile, optional): The file to operate on. Defaults to None.
+    """
     if pw_file is not None:
         if pw_file.exists():
             run_decrypt(pw_file)
@@ -109,8 +125,12 @@ def run_interactive(pw_file: t.Optional[FpFile] = None) -> None:
 
 
 def main() -> None:
+    """Main flashpass entrypoint."""
     parser = argparse.ArgumentParser(
         "flashpass", description="Encrypt & Decrypt FlashPass .fp files"
+    )
+    parser.add_argument(
+        "-v", "--version", action="version", version=f"%(prog)s {__version__}"
     )
     parser.add_argument("filename", type=str, nargs="?", help="password to operate on")
     group = parser.add_mutually_exclusive_group(required=False)
