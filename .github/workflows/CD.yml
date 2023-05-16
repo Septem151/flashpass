@@ -1,0 +1,36 @@
+name: Flashpass CD
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - master
+
+jobs:
+  cd:
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+        poetry-version: ["1.4"]
+    name: Upload tag to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/flashpass
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: Build project
+        run: poetry build
+      - name: Publish package dist to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
