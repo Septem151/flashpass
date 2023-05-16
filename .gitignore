@@ -51,6 +51,11 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+cov-html*
+mypy-html*
+mypy-xml*
+cov_*
+junit/
 
 # Translations
 *.mo

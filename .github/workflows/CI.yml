@@ -1,0 +1,50 @@
+name: Flashpass CI
+
+on: [pull_request]
+
+jobs:
+  ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11"]
+        poetry-version: ["1.4"]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: Install dependencies
+        run: poetry install
+      - name: Format check
+        run: poetry run black --check .
+      - name: Type check
+        run: poetry run mypy --html-report mypy-html_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }} --xml-report mypy-xml_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }} .
+      - name: Upload mypy results
+        uses: actions/upload-artifact@v3
+        with:
+          name: mypy_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}
+          path: |
+            mypy-html_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}
+            mypy-xml_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}
+            retention-days: 14
+        if: ${{ always() }}
+      - name: Test with pytest
+        run: poetry run python -m pytest tests/ --doctest-modules --junitxml=junit/pytest_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}.xml --cov=flashpass tests/ --cov-report=xml:cov_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}.xml --cov-report=html:cov-html_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}
+      - name: Upload pytest test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: pytest_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}
+          path: |
+            junit/pytest_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}.xml
+            cov_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}.xml
+            cov-html_python-${{ matrix.python-version }}_poetry-${{ matrix.poetry-version }}_os-${{ matrix.os }}
+          retention-days: 14
+        if: ${{ always() }}
