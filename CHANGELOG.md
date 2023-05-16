@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - No changes planned
 
+## [1.0.1] - 2023-05-16
+
+### Fixed
+
+- Version bumped to 1.0.1 as intended (version was not bumped in 1.0.0)
+
 ## [1.0.0] - 2023-05-16
 
 ### Added
@@ -26,5 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support for Python versions less than 3.11
 
-[Unreleased]: https://github.com/Septem151/flashpass/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/Septem151/flashpass/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/Septem151/flashpass/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/Septem151/flashpass/compare/v0.1.3...v1.0.0

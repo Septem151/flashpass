@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flashpass"
-version = "1.0.0"
+version = "1.0.1"
 description = "Encrypt & Decrypt FlashPass .fp files"
 authors = ["Carson Mullins <carsonmullins@yahoo.com>"]
 license = "GPL-2.0-only"
