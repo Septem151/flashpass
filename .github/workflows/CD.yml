@@ -1,10 +1,11 @@
 name: Flashpass CD
 
 on:
-  push:
-    tags:
-      - v0.*
-      - v1.*
+  pull_request:
+    types:
+      - closed
+    branches:
+      - master
 
 jobs:
   cd:
